@@ -73,6 +73,17 @@ var player2Color = 'rgb(237, 45, 73)';
 var table = $('table tr');
 var currentPlayer = 1;
 var gameStop = false;
+var state = {
+board: [
+[0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0]
+],
+player: 1
+}
 
 $('.board button').on('click',function() {
     if (!gameStop) {
@@ -95,12 +106,20 @@ function move(col) {
     if(horizontalWinCheck() || verticalWinCheck() || diagonalWinCheck()){
         gameEnd(currentPlayer);
     }
+    state.board[5 - bottomAvail][col] = currentPlayer
 
-    currentPlayer = currentPlayer * -1;
+    currentPlayer = currentPlayer == 1 ? 2 : 1;
+    state.player = currentPlayer
 }
 
 function getAiMove(cb) {
-    $.get("/connect4/api", function(res) {
-        cb(res)
+    $.ajax({
+        type: "POST",
+        url: "/connect4/api",
+        data: JSON.stringify(state),
+        contentType: 'text/plain',
+        success: function(res) {
+            cb(res);
+        }
     })
 }

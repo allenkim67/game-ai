@@ -10,10 +10,10 @@ ai = AI(Connect4, "data/ai.json")
 def home():
     return current_app.send_static_file('index.html')
 
-@app.route('/connect4/api')
+@app.route('/connect4/api', methods=['POST'])
 def ai_move():
     state = request.data
-    game = Connect4()
+    game = Connect4(state)
     return str(ai.get_move(game))
 
 if __name__ == '__main__':
