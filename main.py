@@ -1,5 +1,5 @@
-from src.Connect4 import Connect4
-from src.GameUI import GameUI
+from src import Connect4
+from src import GameUI
 from src.AI import AI
 import sys
 
