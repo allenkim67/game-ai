@@ -15,6 +15,3 @@ def ai_move():
     state = request.data
     game = Connect4(state)
     return str(ai.get_move(game))
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)

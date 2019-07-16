@@ -12,7 +12,7 @@ class AI:
         self.tree.save()
 
     def get_move(self, game):
-        for _ in range(len(game.actions()) * 5):
+        for _ in range(len(game.actions()) * 25):
             self.train(game)
         return max(self.tree.get(game.state()), key=lambda c: c["n"])["action"]
 
